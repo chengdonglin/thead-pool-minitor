@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: monitor-test
+
+
+thead:
+  pool:
+    executor:
+      config:
+        core-pool-size: 5
+        max-pool-size: 200
+        keep-alive-time: 10
+        block-queue-size: 1000
+        policy: AbortPolicy
+
+
+monitor:
+  thread:
+    pool:
+    config:
+      enable: true
+      base-url: xx
+      report-url: xx
+      health-url: xx
