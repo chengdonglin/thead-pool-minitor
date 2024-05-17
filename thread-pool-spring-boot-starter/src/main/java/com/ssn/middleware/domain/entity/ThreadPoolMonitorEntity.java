@@ -19,6 +19,11 @@ public class ThreadPoolMonitorEntity {
     private String applicationName;
 
     /**
+     * 应用唯一标识
+     */
+    private String applicationKey;
+
+    /**
      * 线程池名称
      */
     private String threadPoolName;

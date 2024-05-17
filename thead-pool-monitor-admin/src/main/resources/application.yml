@@ -1,0 +1,20 @@
+
+
+manager:
+  account:
+    username: admin
+    password: 123456
+
+spring:
+  application:
+    name: thread-pool-monitor-admin-web
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/thread_pool_monitor?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+
+server:
+  port: 9009
+

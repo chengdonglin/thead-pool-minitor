@@ -1,6 +1,7 @@
 package com.ssn.middleware.domain;
 
 import com.ssn.middleware.domain.entity.ThreadPoolMonitorEntity;
+import com.ssn.middleware.domain.key.ApplicationId;
 
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,11 @@ public class DefaultMonitorThreadPoolService implements MonitorThreadPoolService
 
     private final Map<String, ThreadPoolExecutor> threadPoolExecutorMap;
 
-    public DefaultMonitorThreadPoolService(String applicationName, Map<String, ThreadPoolExecutor> threadPoolExecutorMap) {
+    private final String applicationKey;
+    public DefaultMonitorThreadPoolService(String applicationName, Map<String, ThreadPoolExecutor> threadPoolExecutorMap, String applicationId) {
         this.applicationName = applicationName;
         this.threadPoolExecutorMap = threadPoolExecutorMap;
+        this.applicationKey = applicationId;
     }
 
     @Override
@@ -33,6 +36,7 @@ public class DefaultMonitorThreadPoolService implements MonitorThreadPoolService
         return names.stream().map(name -> {
             ThreadPoolExecutor threadPoolExecutor = threadPoolExecutorMap.get(name);
             ThreadPoolMonitorEntity monitor = new ThreadPoolMonitorEntity();
+            monitor.setApplicationKey(applicationKey);
             monitor.setApplicationName(applicationName);
             monitor.setThreadPoolName(name);
             monitor.setCorePoolSize(threadPoolExecutor.getCorePoolSize());

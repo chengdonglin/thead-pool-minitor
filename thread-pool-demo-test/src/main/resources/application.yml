@@ -15,10 +15,10 @@ thead:
 
 
 monitor:
-  thread:
+  thead:
     pool:
-    config:
-      enable: true
-      base-url: xx
-      report-url: xx
-      health-url: xx
+      config:
+        enable: true
+        base-url: http://localhost:9009
+        report-url: /monitor/data
+        health-url: /monitor/down

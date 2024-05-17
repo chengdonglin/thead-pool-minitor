@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssn.middleware.admin.mapper.ThreadPoolMonitorMapper">
+
+    <resultMap id="BaseResultMap" type="com.ssn.middleware.admin.po.ThreadPoolPo">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+            <result property="applicationName" column="application_name" jdbcType="VARCHAR"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="threadPoolName" column="thread_pool_name" jdbcType="VARCHAR"/>
+            <result property="corePoolSize" column="core_pool_size" jdbcType="INTEGER"/>
+            <result property="maximumPoolSize" column="maximum_pool_size" jdbcType="INTEGER"/>
+            <result property="activeCount" column="active_count" jdbcType="INTEGER"/>
+            <result property="poolSize" column="pool_size" jdbcType="INTEGER"/>
+            <result property="queueType" column="queue_type" jdbcType="VARCHAR"/>
+            <result property="queueSize" column="queue_size" jdbcType="INTEGER"/>
+            <result property="remainingCapacity" column="remaining_capacity" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="activeTime" column="active_time" jdbcType="TIMESTAMP"/>
+            <result property="down" column="down" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,application_id,application_name,
+        ip,thread_pool_name,core_pool_size,
+        maximum_pool_size,active_count,pool_size,
+        queue_type,queue_size,remaining_capacity,
+        create_time,active_time,down
+    </sql>
+</mapper>

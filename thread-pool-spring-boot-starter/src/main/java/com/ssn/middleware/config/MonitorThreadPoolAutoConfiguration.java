@@ -2,6 +2,8 @@ package com.ssn.middleware.config;
 
 import com.ssn.middleware.domain.DefaultMonitorThreadPoolService;
 import com.ssn.middleware.domain.MonitorThreadPoolService;
+import com.ssn.middleware.domain.key.ApplicationId;
+import com.ssn.middleware.domain.key.RandomApplicationId;
 import com.ssn.middleware.job.MonitorThreadPoolSchedule;
 import com.ssn.middleware.report.ReportService;
 import com.ssn.middleware.report.http.HttpReportService;
@@ -35,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 @EnableScheduling
 public class MonitorThreadPoolAutoConfiguration {
 
+    public static String APPLICATION_ID = RandomApplicationId.getInstance().generate();
 
     @Bean("monitorThreadPoolService")
     public MonitorThreadPoolService monitorThreadPoolService(ApplicationContext applicationContext, Map<String, ThreadPoolExecutor> threadPoolExecutorMap) {
@@ -43,7 +46,7 @@ public class MonitorThreadPoolAutoConfiguration {
             applicationName = "default";
             log.warn("动态线程池，启动提示。SpringBoot 应用未配置 spring.application.name 无法获取到应用名称！");
         }
-        return new DefaultMonitorThreadPoolService(applicationName,threadPoolExecutorMap);
+        return new DefaultMonitorThreadPoolService(applicationName,threadPoolExecutorMap,APPLICATION_ID);
     }
 
     @Bean("httpClient")
@@ -54,7 +57,7 @@ public class MonitorThreadPoolAutoConfiguration {
 
     @Bean
     public ReportService reportService(MonitorTheadPoolProperties monitorTheadPoolProperties, OkHttpClient httpClient) {
-        return new HttpReportService(monitorTheadPoolProperties,httpClient);
+        return new HttpReportService(monitorTheadPoolProperties,httpClient,APPLICATION_ID);
     }
 
     @Bean

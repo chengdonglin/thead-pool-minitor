@@ -3,6 +3,7 @@ package com.ssn.middleware.report.http;
 import com.ssn.middleware.config.MonitorTheadPoolProperties;
 import com.ssn.middleware.domain.entity.ThreadPoolMonitorEntity;
 import com.ssn.middleware.domain.gson.GsonService;
+import com.ssn.middleware.domain.key.ApplicationId;
 import com.ssn.middleware.report.ReportService;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -26,11 +27,14 @@ public class HttpReportService implements ReportService {
 
     private final GsonService gsonService = GsonService.getInstance();
 
+    private final String applicationId;
+
     public static final MediaType JSON = MediaType.get("application/json");
 
-    public HttpReportService(MonitorTheadPoolProperties monitorTheadPoolProperties, OkHttpClient httpClient) {
+    public HttpReportService(MonitorTheadPoolProperties monitorTheadPoolProperties, OkHttpClient httpClient, String applicationId) {
         this.monitorTheadPoolProperties = monitorTheadPoolProperties;
         this.httpClient = httpClient;
+        this.applicationId = applicationId;
     }
 
     @Override
@@ -53,8 +57,8 @@ public class HttpReportService implements ReportService {
     }
 
     @Override
-    public void health() {
-        Request request = new Request.Builder().url(monitorTheadPoolProperties.getHealthUrl()).get().build();
+    public void down() {
+        Request request = new Request.Builder().url(monitorTheadPoolProperties.getBaseUrl() + monitorTheadPoolProperties.getHealthUrl() + "/" + applicationId).get().build();
         try {
             Response response = this.httpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
@@ -64,5 +68,11 @@ public class HttpReportService implements ReportService {
             log.error("健康检查响应异常",e);
         }
 
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        log.info("监听服务销毁");
+        down();
     }
 }

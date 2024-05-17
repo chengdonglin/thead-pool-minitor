@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @Description: TODO
  * @Version 1.0
  */
-@ConfigurationProperties(prefix = "monitor.thead.pool.config",ignoreInvalidFields = true)
+@ConfigurationProperties(prefix = "monitor.thead.pool.config")
 @Data
 public class MonitorTheadPoolProperties {
 

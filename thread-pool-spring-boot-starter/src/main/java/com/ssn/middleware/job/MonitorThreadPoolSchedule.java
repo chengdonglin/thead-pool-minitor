@@ -28,15 +28,11 @@ public class MonitorThreadPoolSchedule {
     }
 
 
-    @Scheduled(cron = "0/30 * * * * ?")
+    @Scheduled(cron = "0/60 * * * * ?")
     public void reportSchedule() {
         log.info("开始上报线程池信息数据");
          List<ThreadPoolMonitorEntity> list = monitorThreadPoolService.queryThreadPool();
          reportService.report(list);
     }
 
-    @Scheduled(cron =  "0/15 * * * * ?")
-    public void reportHealth() {
-        log.info("上报服务健康状态");
-    }
 }

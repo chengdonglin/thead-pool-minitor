@@ -1,6 +1,7 @@
 package com.ssn.middleware.report;
 
 import com.ssn.middleware.domain.entity.ThreadPoolMonitorEntity;
+import org.springframework.beans.factory.DisposableBean;
 
 import java.util.List;
 
@@ -12,10 +13,10 @@ import java.util.List;
  * @Description: 上报数据服务
  * @Version 1.0
  */
-public interface ReportService {
+public interface ReportService extends DisposableBean {
 
     void report(List<ThreadPoolMonitorEntity>  datas);
 
 
-    void health();
+    void down();
 }
